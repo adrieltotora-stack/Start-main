@@ -47,6 +47,7 @@ fun TasksScreen(
 
   TasksScreenContent(
     tasks = tasks.value,
+    options = viewModel.options.value,
     onAddClick = viewModel::onAddClick,
     onSettingsClick = viewModel::onSettingsClick,
     onTaskCheckChange = viewModel::onTaskCheckChange,
@@ -63,6 +64,7 @@ fun TasksScreen(
 fun TasksScreenContent(
   modifier: Modifier = Modifier,
   tasks: List<Task>,
+  options: List<String>,
   onAddClick: ((String) -> Unit) -> Unit,
   onSettingsClick: ((String) -> Unit) -> Unit,
   onTaskCheckChange: (Task) -> Unit,
@@ -95,7 +97,7 @@ fun TasksScreenContent(
         items(tasks, key = { it.id }) { taskItem ->
           TaskItem(
             task = taskItem,
-            options = listOf(),
+            options = options,
             onCheckChange = { onTaskCheckChange(taskItem) },
             onActionClick = { action -> onTaskActionClick(openScreen, taskItem, action) }
           )
@@ -112,6 +114,7 @@ fun TasksScreenPreview() {
   MakeItSoTheme {
     TasksScreenContent(
       tasks = emptyList(),
+      options = emptyList(),
       onAddClick = { },
       onSettingsClick = { },
       onTaskCheckChange = { },
